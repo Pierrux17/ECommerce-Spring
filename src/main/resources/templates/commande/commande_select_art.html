@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html layout:decorate="layout" xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>CHOOSE ARTICLE IN COMMANDE</title>
+<script type="text/javascript">
+	$(document).ready( function () {
+		$('#tableArticle').DataTable();
+	  } );
+</script>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container my-3" style="width : 70%">
+		
+		  	<h2>Commande n° : <span th:text="${commande.id}" th:remove="tag">title</span></h2>
+		  	
+		  	<table id="tableArticle" class="display" style="width: 100%">
+			    <thead>
+			      <tr>
+			        <th>Article</th>
+			        <th>Catégorie</th>
+			        <th>Prix unitaire</th>
+			        <th>Stock</th>
+			        <th>Sélectionner l'article</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr th:each="art : ${article}">
+			        <td th:text="${art.denomination}"></td>
+			        <td th:text="${art.cat.nom}"></td>
+			        <td th:text="${art.prix}"></td>
+			        <td th:text="${art.stock}"></td>
+			        <td><a th:href="@{/editCmdArtForm(idArt=${art.id},idCmd=${commande.id})}">Choisir</a></td>
+			      </tr>
+		  	</table>
+		</div>			
+ 	</div>
+</body>
+</html>

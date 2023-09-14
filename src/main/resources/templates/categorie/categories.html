@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html layout:decorate="layout" xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>SHOW ALL CATEGORIE</title>
+
+<script type="text/javascript">
+	$(document).ready( function () {
+		$('#tableCategorie').DataTable();
+	  } );
+</script>
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container my-3">
+			
+			<a id="btnAddCategorie" href="/springPierre/categorieForm" class ="btn btn-primary">Ajouter une catégorie</a>
+	 	
+		 	<table id="tableCategorie" class="display text-center">
+			    <thead>
+			      <tr>
+			        <th class="text-center">ID</th>
+			        <th class="text-center">Nom</th>
+			        <th class="text-center">Modifier</th>
+			        <th class="text-center">Supprimer</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr th:each="cat : ${categorie}">
+			        <td th:text="${cat.id}"></td>
+			        <td th:text="${cat.nom}"></td>
+			        <td><a th:href="@{/editCategorie/{id} (id = ${cat.id})}"><img
+			        			th:src="@{images/update.png}" /></a></td>
+			        <td><a th:href="@{/deleteCategorie/{id} (id = ${cat.id})}"
+			        		th:data-confirm-delete = "|Voulez-vous supprimer la categorie n° : ${cat.id} ?|"
+			        		th:onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"
+			        			><img th:src="@{images/delete.png}" /></a></td>
+			      </tr>
+			    </tbody>
+		  	</table>
+		</div>		
+ 	</div>
+</body>
+</html>

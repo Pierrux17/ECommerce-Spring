@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html layout:decorate="layout" xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/design.css}"/>
+
+<title>ERROR</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container my-3 text-center">
+			<p><br><br></p>
+			<h3>Cet article est contenu dans une ou plusieurs commandes. Impossible de le supprimer</h3>
+		 	<a href="/springPierre/article" class="btn btn-primary mt-5 mb-5">Retour à la liste</a>
+		 </div>
+	</div>
+</body>
+</html>

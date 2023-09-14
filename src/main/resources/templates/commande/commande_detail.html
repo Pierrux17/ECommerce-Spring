@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html layout:decorate="layout" xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/design.css}"/>
+
+<title>SHOW DETAIL COMMANDE</title>
+<script type="text/javascript">
+	$(document).ready( function () {
+		$('#tableListeArticle').DataTable();
+	  } );
+</script>
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container my-3">
+			<h2>Détail de la commande</h2>
+			
+		 	<table id="tableCommande" class="display w-75">
+			    <thead>
+			      <tr th:each="com : ${commande}">
+				    <td><a th:href="@{/editCommande/{id} (id = ${com.id})}" class ="btn btn-primary">Modifier la commande</a></td>
+				  </tr>
+				
+			      <tr>
+			        <th>Identifiant</th>
+			        <th>Nom du client</th>
+			        <th>Prénom du client</th>
+			        <th>Date</th>
+			        <th>Prix total de la commande</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr th:each="com : ${commande}">
+			        <td th:text="${com.id}"></td>
+			        <td th:text="${com.nom}"></td>
+			        <td th:text="${com.prenom}"></td>
+			        <td th:text="${com.date}"></td>
+			        <td th:text="${prixTotal}"></td>
+			      </tr>
+			      <tr th:each="com : ${commande}">
+				    <td>
+				    	<span th:if="${com.cloture}">
+				    		<a class ="btn btn-secondary" style = "margin-top : 50px">Choisir des articles</a>
+				    	</span>
+				    	<span th:if="${!com.cloture}">
+				    		 <a th:href="@{/editCmdArt/{id} (id = ${com.id})}" class ="btn btn-primary" style = "margin-top : 50px">Choisir des articles</a>
+				    	</span> 
+				    </td>
+				  </tr>
+			    </tbody>
+		  	</table>
+		  
+		  	<h2>Articles commandés</h2>
+		  	
+		  	<table id="tableListeArticle" class="display">
+			    <thead>
+			      <tr>
+			        <th>Article</th>
+			        <th>Quantité</th>
+			        <th>Prix unitaire</th>
+			        <th>Prix</th>
+			        <th>Supprimer</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr th:each="la : ${listeArticle}">
+			        <td th:text="${la.article.denomination}"></td>
+			        <td th:text="${la.qt}"></td>
+			        <td th:text="${la.article.prix}"></td>
+			        <td th:text="${la.prixactuel}"></td>
+			        <td>
+				        <span th:if="${!la.commande.cloture}">
+					        <a th:href="@{/deleteListeArticle/{id} (id = ${la.id})}"
+					        		th:data-confirm-delete = "|Voulez-vous supprimer la commande n° : ${la.id} ?|"
+					        		th:onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"
+					        			>Supprimer</a>
+				        </span>
+				        <span th:if="${la.commande.cloture}">
+				        	<a>Supprimer</a>
+				        </span>
+			        </td>
+			      </tr>
+			    </tbody>
+		  	</table>
+		</div>			
+ 	</div>
+</body>
+</html>

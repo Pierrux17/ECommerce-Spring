@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html layout:decorate="layout" xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>SELECT QT ARTICLE</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+	<div class="container my-3" style="width : 70%">
+		<form th:action="@{/addListeArticle}" th:object="${listeArticle}" method="post">
+			<div>
+				<label for="qt">Quantité</label>
+				<input type="number" th:field="*{qt}" class="form-control" th:min="1" th:max="*{article.stock}" style="width : 50%" required/>
+			</div>	
+			<div style="display : none">
+				<label for="commande_id">Id commande</label>
+				<input type="text" th:field="*{commande.id}" class="form-control" style="width : 50%" required/>
+			</div>
+			<div style="display : none">
+				<label for="article_id">id article</label>
+				<input type="text" th:field="*{article.id}" class="form-control" style="width : 50%" required/>
+			</div>
+			<div>
+				<button type="submit" class ="btn btn-primary" style ="margin-top : 30px">Confirmer</button>
+		    </div>
+		</form>
+	</div>
+</div>
+
+	
+</body>
+</html>

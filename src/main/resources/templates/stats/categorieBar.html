@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html layout:decorate="layout" xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/design.css}"/>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+	google.charts.load('current', {'packages':['corechart']});
+	
+	google.charts.setOnLoadCallback(drawChart);
+	
+	function drawChart() {
+	
+	$.ajax({
+		url: "StatCatBar",
+		dataType: "json",
+		success: function(jsonData) {
+			
+		var data = new google.visualization.arrayToDataTable(jsonData);
+		
+	    
+	    var options = {'title':'Statistique des articles commandés par catégorie',
+	                    'width':700,
+	                    'height':600};
+	     
+	    var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+	    chart.draw(data, options);
+	     
+	    console.log(jsonData);
+		}}); 
+	}	
+</script>
+
+<title>SHOW STATISTICS</title>
+
+</head>
+<body>
+	<div layout:fragment="content" style="height : 600px; width : 700px; margin-right : auto; margin-left : auto">
+		<div class="container my-3">
+			<div id="chart_div"></div>
+		</div>
+	</div>		
+</body>
+</html>

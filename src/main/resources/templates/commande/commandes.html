@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html layout:decorate="layout" xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>SHOW ALL COMMANDE</title>
+
+<script type="text/javascript">
+	$(document).ready( function () {
+		$('#tableCommande').DataTable();
+	  } );
+</script>
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container my-3">
+			
+			<a id="btnAddCommande" href="/springPierre/commandeForm" class ="btn btn-primary">Ajouter une commande</a>
+	 	
+		 	<table id="tableCommande" class="display text-center">
+			    <thead>
+			      <tr>
+			        <th class="text-center">ID</th>
+			        <th class="text-center">Nom</th>
+			        <th class="text-center">Prénom</th>
+			        <th class="text-center">Date</th>
+			        <th class="text-center">Clôture</th>
+			        <th class="text-center">Détails</th>
+			        <th class="text-center">Supprimer</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr th:each="com : ${commande}">
+			        <td th:text="${com.id}"></td>
+			        <td th:text="${com.nom}"></td>
+			        <td th:text="${com.prenom}"></td>
+			        <td th:text="${com.date}"></td>
+			        <td th:text="${com.cloture}"></td>
+			        <td><a th:href="@{/detailCommande/{id} (id = ${com.id})}"><img
+			        			th:src="@{images/detail.png}" /></a></td>
+			        <td><a th:href="@{/deleteCommande/{id} (id = ${com.id})}"
+			        		th:data-confirm-delete = "|Voulez-vous supprimer la commande n° : ${com.id} ?|"
+			        		th:onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"
+			        			><img th:src="@{images/delete.png}" /></a></td>
+			      </tr>
+			    </tbody>
+		  	</table>
+		</div>		
+ 	</div>
+</body>
+</html>

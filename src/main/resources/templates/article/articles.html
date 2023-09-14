@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html layout:decorate="layout" xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>SHOW ALL ARTICLE</title>
+
+<script type="text/javascript">
+	$(document).ready( function () {
+		$('#tableArticle').DataTable();
+	  } );
+</script>
+
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="container my-3">
+			
+			<a id="btnAddArticle" href="/springPierre/articleForm" class ="btn btn-primary">Ajouter un article</a>
+	 	
+		 	<table id="tableArticle" class="display text-center">
+			    <thead>
+			      <tr>
+			        <th class="text-center">ID</th>
+			        <th class="text-center">Article</th>
+			        <th class="text-center">Catégorie</th>
+			        <th class="text-center">Prix</th>
+			        <th class="text-center">Stock</th>
+			        <th class="text-center">Actif</th>
+			        <th class="text-center">Modifier</th>
+			        <th class="text-center">Supprimer</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      <tr th:each="art : ${article}">
+			        <td th:text="${art.id}"></td>
+			        <td th:text="${art.denomination}"></td>
+			        <td th:text="${art.cat.nom}"></td>
+			        <td th:text="${art.prix}"></td>
+			        <td th:text="${art.stock}"></td>
+			        <td th:text="${art.actif}"></td>
+			        <td><a th:href="@{/editArticle/{id} (id = ${art.id})}"><img
+			        			th:src="@{images/update.png}" /></a></td>
+			        <td><a th:href="@{/deleteArticle/{id} (id = ${art.id})}"
+			        		th:data-confirm-delete = "|Voulez-vous supprimer l'article : ${art.denomination} ?|"
+			        		th:onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false"
+			        			><img th:src="@{images/delete.png}" /></a></td>
+			      </tr>
+			    </tbody>
+		  	</table>
+		</div>		
+ 	</div>
+</body>
+</html>

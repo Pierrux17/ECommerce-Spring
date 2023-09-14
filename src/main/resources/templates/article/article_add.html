@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html layout:decorate="layout" xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>ARTICLE ADD</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+	<div class="container my-3 w-50">
+		<form th:action="@{/addArticle}" th:object="${article}" method="post">
+			<div>
+				<label for="categorie">Catégorie de l'article</label>
+				<select th:field="${article.cat}" class="form-control" required>
+					<option value="" disabled selected>Choisir une catégorie</option>
+					<option th:each="cat : ${categorie}"
+						th:value="${cat.id}" th:text="${cat.nom}"></option>
+				</select>
+			</div>
+			<div>
+				<label for="denomination">Nom de l'article</label>
+				<input type="text" th:field="*{denomination}" class="form-control" required/>
+				<span th:errors ="${article.denomination}" class="text-danger"></span>
+			</div>
+			<div class="w-25">
+				<label for="prix">Prix de l'article</label>
+				<input type="text" th:field="*{prix}" class="form-control" required/>
+				<span th:errors ="${article.prix}" class="text-danger"></span>
+			</div>
+			<div class="w-25">
+				<label for="stock">Stock de l'article</label>
+				<input type="text" th:field="*{stock}" class="form-control" required/>
+				<span th:errors ="${article.stock}" class="text-danger"></span>
+			</div>
+			<div>
+				<label for="actif">Actif</label>
+				<input type="checkbox" th:field="*{actif}" style="width : 20px; height : 20px;"/>
+				<span th:errors ="${article.actif}" class="text-danger"></span>
+			</div>
+			<div class="mt-4">
+				<button type="submit" class ="btn btn-primary">Confirmer</button>
+		    </div>
+		</form>
+	</div>
+</div>
+
+	
+</body>
+</html>
